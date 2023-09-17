@@ -1,15 +1,8 @@
 /**
  * \file ZipcodeBuffer.cpp
- * \author Andrew Clayton
- * \version 1.0
- * \brief Member function definitions for class ZipcodeBuffer
- * 
- * ZipcodeBuffer class:
- * - Allows reading from a CSV string and setting object attributes.
- * - Allows for easy input and output through overloaded operators.
- * - Holds information like zipcode, city, state, county, latitude, and longitude.
- * 
- * 
+ * \author Andrew Clayton and Mergen Ganbaatar
+ * \version 1.2
+ * \brief Implementation file for ZipcodeBuffer class.
  */
 
 
@@ -88,8 +81,8 @@ void ZipcodeBuffer::setLongitude(double longitude) {
     this->longitude = longitude;
 }
 
+//Other functions
 
-//Example of what needs to be taken in: 1222,Ashley Falls,MA,Berkshire,42.0596,-73.3202
 void ZipcodeBuffer::setFromFile(string fileLine) {
     stringstream ss(fileLine);
     string field;
