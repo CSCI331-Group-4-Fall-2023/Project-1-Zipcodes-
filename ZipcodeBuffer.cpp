@@ -29,6 +29,58 @@ ZipcodeBuffer::ZipcodeBuffer(int zipcode, string city, string state, string coun
     this->longitude = longitude;
 }
 
+
+//Getters
+int ZipcodeBuffer::getZipcode() const {
+    return zipcode;
+}
+
+string ZipcodeBuffer::getCity() const {
+    return city;
+}
+
+string ZipcodeBuffer::getState() const {
+    return state;
+}
+
+string ZipcodeBuffer::getCounty() const {
+    return county;
+}
+
+double ZipcodeBuffer::getLatitude() const {
+    return latitude;
+}
+
+double ZipcodeBuffer::getLongitude() const {
+    return longitude;
+}
+
+//Setters
+void ZipcodeBuffer::setZipcode(int zipcode) {
+    this->zipcode = zipcode;
+}
+
+void ZipcodeBuffer::setCity(string city) {
+    this->city = city;
+}
+
+void ZipcodeBuffer::setState(string state) {
+    this->state = state;
+}
+
+void ZipcodeBuffer::setCounty(string county) {
+    this->county = county;
+}
+
+void ZipcodeBuffer::setLatitude(double latitude) {
+    this->latitude = latitude;
+}
+
+void ZipcodeBuffer::setLongitude(double longitude) {
+    this->longitude = longitude;
+}
+
+
 //Example of what needs to be taken in: 1222,Ashley Falls,MA,Berkshire,42.0596,-73.3202
 void ZipcodeBuffer::setFromFile(string fileLine) {
     stringstream ss(fileLine);
