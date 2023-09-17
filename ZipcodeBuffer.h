@@ -1,14 +1,14 @@
 /**
  * \file ZipcodeBuffer.h
- * \author Andrew Clayton
- * \version 1.0
- * \brief Class ZipcodeBuffer header file. This class is used to take in and store the data from the Zipcode CSV file
+ * \author Andrew Clayton and Mergen Ganbaatar
+ * \version 1.2
+ * \brief This header file defines the ZipcodeBuffer class, which is used to take in and store data from a Zipcode CSV file.
  * 
  * ZipcodeBuffer class: File to work with Zipcode CSV file
  * - Function to take in a line of the CSV file as a string and set the attributes of the object
  * - Overloaded input and output operators
  * - 
- * \note: A valid CSV line must be provided to set the attributes correctly
+ * \note A valid CSV line must be provided to set the attributes correctly
  */
 
 #ifndef ZIPCODEBUFFER_H
@@ -17,32 +17,32 @@
 #include <iostream>
 using namespace std;
 
-
-
+/**
+ * \class ZipcodeBuffer
+ * \brief Class to represent a Zipcode and its related attributes.
+ */
 class ZipcodeBuffer {
     private:
-        //Commenting probably needed for attributes? -------------------------------------
+        /// \brief Zipcode as an integer.
         int zipcode;
+        
+        /// \brief City name as a string.
         string city;
+        
+        /// \brief State abbreviation as a string.
         string state;
+        
+        /// \brief County name as a string.
         string county;
+        
+        /// \brief Latitude as a double.
         double latitude;
+        
+        /// \brief Longitude as a double.
         double longitude;
-
-  
-  //Comentation style: Doxygen
-    /**
-     * \brief Overloaded input operator for Array
-     * \param in Input stream
-     * \param a Array to fill
-     * \pre a.ptr must point to an array with size at least a.size
-     * \post The first a.size elements of a.ptr are filled with integers read from input
-     * \return Updated input stream
-     */
 
 
     public:
-        //Default constructor
         /**
          * \brief Default constructor
          * \pre None
@@ -51,20 +51,21 @@ class ZipcodeBuffer {
         ZipcodeBuffer();
 
         /**
-         * \brief Constructor
-         * \param zipcode Integer value of zipcode
-         * \param city City as a string
-         * \param state State as a string
-         * \param county County as a string
-         * \param latitude Latitude as a double
-         * \param longitude Longitude as a double
+         * \brief Parameterized constructor to initialize the object with given values.
+         * \param zipcode Integer value representing the Zipcode.
+         * \param city String representing the city.
+         * \param state String representing the state.
+         * \param county String representing the county.
+         * \param latitude Double representing the latitude.
+         * \param longitude Double representing the longitude.
          * \pre None
-         * \post ZipcodeBuffer object is created with the given values
-        */
+         * \post ZipcodeBuffer object is created with given values.
+         */
         ZipcodeBuffer(int zipcode, string city, string state, string county, double latitude, double longitude);
 
 
         //Getters
+
         /**
          * \brief Getter for zipcode
          * \pre ZipcodeBuffer object must exist
@@ -162,8 +163,12 @@ class ZipcodeBuffer {
         */
         void setLongitude(double longitude);
 
-
-        //Function using getline to take in all of the attributes, separated by commas CSV style, and set them to the object
+        /**
+         * \brief Function to take in a line of the CSV file as a string and set the attributes of the object
+         * \param fileLine String representing a line of the CSV file
+         * \pre ZipcodeBuffer object must exist
+         * \post ZipcodeBuffer object's attributes are set to the values in the given string
+        */
         void setFromFile(string fileLine);
 
 
@@ -190,13 +195,5 @@ class ZipcodeBuffer {
 
     
 };
-
-
-
-
-
-
-
-
 
 #endif
