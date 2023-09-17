@@ -17,7 +17,15 @@
 #include <sstream> //For stringstream
 #include <string> //For getline
 
-//Default constructor------
+//Default constructor
+ZipcodeBuffer::ZipcodeBuffer() {
+    zipcode = 0;
+    city = "";
+    state = "";
+    county = "";
+    latitude = 0.0;
+    longitude = 0.0;
+}
 
 //Constructor
 ZipcodeBuffer::ZipcodeBuffer(int zipcode, string city, string state, string county, double latitude, double longitude) {
