@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -31,13 +30,13 @@ int main() {
     }
 
     string line;
-    while (getline(inFile, line)) {
+    //Reading from file
+    while (getline(inFile, line)) { 
         zip3.setFromFile(line);
         cout << "Read from file: " << zip3 << endl;
     }
 
     //Test getters and setters
-
     zip3.setState("IL");
     cout << zip3.getState();
     
