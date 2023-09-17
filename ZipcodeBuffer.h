@@ -63,6 +63,106 @@ class ZipcodeBuffer {
         */
         ZipcodeBuffer(int zipcode, string city, string state, string county, double latitude, double longitude);
 
+
+        //Getters
+        /**
+         * \brief Getter for zipcode
+         * \pre ZipcodeBuffer object must exist
+         * \post None
+         * \return Integer value of zipcode
+        */
+        int getZipcode() const;
+
+        /**
+         * \brief Getter for city
+         * \pre ZipcodeBuffer object must exist
+         * \post None
+         * \return String value of city
+        */
+        string getCity() const;
+
+        /**
+         * \brief Getter for state
+         * \pre ZipcodeBuffer object must exist
+         * \post None
+         * \return String value of state
+        */
+        string getState() const;
+
+        /**
+         * \brief Getter for county
+         * \pre ZipcodeBuffer object must exist
+         * \post None
+         * \return String value of county
+        */
+        string getCounty() const;
+
+        /**
+         * \brief Getter for latitude
+         * \pre ZipcodeBuffer object must exist
+         * \post None
+         * \return Double value of latitude
+        */
+        double getLatitude() const;
+
+        /**
+         * \brief Getter for longitude
+         * \pre ZipcodeBuffer object must exist
+         * \post None
+         * \return Double value of longitude
+        */
+        double getLongitude() const;
+
+        //Setters
+        /**
+         * \brief Setter for zipcode
+         * \param zipcode Integer value of zipcode
+         * \pre ZipcodeBuffer object must exist
+         * \post ZipcodeBuffer object's zipcode attribute is set to the given value
+        */
+        void setZipcode(int zipcode);
+
+        /**
+         * \brief Setter for city
+         * \param city String value of city
+         * \pre ZipcodeBuffer object must exist
+         * \post ZipcodeBuffer object's city attribute is set to the given value
+        */
+        void setCity(string city);
+
+        /**
+         * \brief Setter for state
+         * \param state String value of state
+         * \pre ZipcodeBuffer object must exist
+         * \post ZipcodeBuffer object's state attribute is set to the given value
+        */
+        void setState(string state);
+
+        /**
+         * \brief Setter for county
+         * \param county String value of county
+         * \pre ZipcodeBuffer object must exist
+         * \post ZipcodeBuffer object's county attribute is set to the given value
+        */
+        void setCounty(string county);
+
+        /**
+         * \brief Setter for latitude
+         * \param latitude Double value of latitude
+         * \pre ZipcodeBuffer object must exist
+         * \post ZipcodeBuffer object's latitude attribute is set to the given value
+        */
+        void setLatitude(double latitude);
+
+        /**
+         * \brief Setter for longitude
+         * \param longitude Double value of longitude
+         * \pre ZipcodeBuffer object must exist
+         * \post ZipcodeBuffer object's longitude attribute is set to the given value
+        */
+        void setLongitude(double longitude);
+
+
         //Function using getline to take in all of the attributes, separated by commas CSV style, and set them to the object
         void setFromFile(string fileLine);
 
