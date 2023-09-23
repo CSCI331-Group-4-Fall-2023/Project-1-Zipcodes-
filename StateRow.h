@@ -18,11 +18,17 @@ using namespace std;
  */
 class StateRow {
 private:
+    bool fresh;
     string ID; ///< State ID
     double eastmost; ///< Easternmost longitude
     double westmost; ///< Westernmost longitude
     double northmost; ///< Northernmost latitude
     double southmost; ///< Southernmost latitude
+
+    int eastmostZ; ///< Easternmost longitude Zipcode
+    int westmostZ; ///< Westernmost longitude Zipcode
+    int northmostZ; ///< Northernmost latitude Zipcode
+    int southmostZ; ///< Southernmost latitude Zipcode
 
 public:
     /**
@@ -45,26 +51,39 @@ public:
      * @param n Northernmost latitude.
      * @param s Southernmost latitude.
      */
-    StateRow(string id, double e, double w, double n, double s);
+    StateRow(string id, double e, double w, double n, double s, int eZ, int wZ, int nZ, int sZ);
 
     /**
      * @brief Get the state's ID.
      * @return The state's ID.
      */
     string getID();
-
+     
+    bool getFresh();
     // Getter methods
     double getEast(); ///< Get the easternmost longitude.
     double getWest(); ///< Get the westernmost longitude.
     double getNorth(); ///< Get the northernmost latitude.
     double getSouth(); ///< Get the southernmost latitude.
 
+
+    int getEastZ(); ///< Get the easternmost longitude Zipcode.
+    int getWestZ(); ///< Get the westernmost longitude Zipcode.
+    int getNorthZ(); ///< Get the northernmost latitude Zipcode.
+    int getSouthZ(); ///< Get the southernmost latitude Zipcode.
+
     // Setter methods
+    void setFresh(bool b);
     void setID(string id); ///< Set the state's ID.
     void setEast(double east); ///< Set the easternmost longitude.
     void setWest(double west); ///< Set the westernmost longitude.
     void setNorth(double north); ///< Set the northernmost latitude.
     void setSouth(double south); ///< Set the southernmost latitude.
+
+    void setEastZ(int eastZ); ///< Set the easternmost longitude Zipcode.
+    void setWestZ(int westZ); ///< Set the westernmost longitude Zipcode.
+    void setNorthZ(int northZ); ///< Set the northernmost latitude Zipcode.
+    void setSouthZ(int southZ); ///< Set the southernmost latitude Zipcode.
 
     /**
      * @brief Overloaded operator to print StateRow objects.
