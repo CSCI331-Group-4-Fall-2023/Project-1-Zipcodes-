@@ -17,11 +17,16 @@ using namespace std;
  * - Southernmost latitude: 00.00
  */
 StateRow::StateRow(){
+    fresh = true;
     ID = "TEMP";
     eastmost = 00.00;
     westmost = 00.00;
     northmost = 00.00;
     southmost = 00.00;
+    eastmostZ = 0;
+    westmostZ = 0;
+    northmostZ = 0;
+    southmostZ = 0;
 }
 
 /**
@@ -33,12 +38,25 @@ StateRow::StateRow(){
  * @param n Northernmost latitude.
  * @param s Southernmost latitude.
  */
-StateRow::StateRow(string id, double e, double w, double n, double s){
+StateRow::StateRow(string id, double e, double w, double n, double s, int eZ, int wZ, int nZ, int sZ){
+    this->fresh = true;
     this->ID = id;
     this->eastmost = e;
     this->westmost = w;
     this->northmost = n;
     this->southmost = s;
+    this->eastmostZ = eZ;
+    this->westmostZ = wZ;
+    this->northmostZ = nZ;
+    this->southmostZ = sZ;
+}
+
+/**
+ * @brief Get the fresh boolean.
+ * @return The fresh bool.
+ */
+bool StateRow::getFresh(){
+    return fresh;
 }
 
 /**
@@ -71,6 +89,38 @@ double StateRow::getNorth(){
  */
 double StateRow::getSouth(){
     return southmost;
+}
+
+/**
+ * @brief Get the easternmost longitude Zipcode of the state.
+ * @return The easternmost longitude Zipcode.
+ */
+int StateRow::getEastZ(){
+    return eastmostZ;
+}
+
+/**
+ * @brief Get the westernmost longitude Zipcode of the state.
+ * @return The westernmost longitude Zipcode.
+ */
+int StateRow::getWestZ(){
+    return westmostZ;
+}
+
+/**
+ * @brief Get the northernmost latitude Zipcode of the state.
+ * @return The northernmost latitude Zipcode.
+ */
+int StateRow::getNorthZ(){
+    return northmostZ;
+}
+
+/**
+ * @brief Get the southernmost latitude Zipcode of the state.
+ * @return The southernmost latitude Zipcode.
+ */
+int StateRow::getSouthZ(){
+    return southmostZ;
 }
 
 /**
@@ -114,6 +164,38 @@ void StateRow::setSouth(double s){
 }
 
 /**
+ * @brief Set the easternmost longitude Zipcode of the state.
+ * @param e The easternmost longitude Zipcode to set.
+ */
+void StateRow::setEastZ(int eastZ){
+    this->eastmostZ = eastZ;
+}
+
+/**
+ * @brief Set the westernmost longitude Zipcode of the state.
+ * @param w The westernmost longitude Zipcode to set.
+ */
+void StateRow::setWestZ(int westZ){
+    this->westmostZ = westZ;
+}
+
+/**
+ * @brief Set the northernmost latitude Zipcode of the state.
+ * @param n The northernmost latitude Zipcode to set.
+ */
+void StateRow::setNorthZ(int northZ){
+    this->northmostZ = northZ;
+}
+
+/**
+ * @brief Set the southernmost latitude Zipcode of the state.
+ * @param s The southernmost latitude Zipcode to set.
+ */
+void StateRow::setSouthZ(int southZ){
+    this->southmostZ = southZ;
+}
+
+/**
  * @brief Set the state's ID.
  * @param id The state's ID to set.
  */
@@ -122,12 +204,21 @@ void StateRow::setID(string id){
 }
 
 /**
+ * @brief Set the fresh boolean.
+ * @param b bool to set fresh to.
+ */
+void StateRow::setFresh(bool b){
+    this->fresh = b;
+}
+
+
+/**
  * @brief Overloaded operator to print StateRow objects.
  * @param out Output stream.
  * @param row StateRow object to print.
  * @return Reference to the output stream.
  */
 ostream& operator<<(ostream& out, const StateRow& row){
-    out << "[" << row.ID << "]" << "[" << row.eastmost << "]" << "[" << row.westmost << "]" << "[" << row.northmost << "]" << "[" << row.southmost << "]";
+    out << "[" << row.fresh << "]" << "[" << row.ID << "]" << "[" << row.eastmost << "]" << "[" << row.westmost << "]" << "[" << row.northmost << "]" << "[" << row.southmost << "]" << "[" << row.eastmostZ << "]" << "[" << row.westmostZ << "]" << "[" << row.northmostZ << "]" << "[" << row.southmostZ << "]";
     return out;
 }
