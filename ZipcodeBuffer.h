@@ -211,6 +211,5 @@ class ZipcodeBuffer {
 };
 
 #include "ZipcodeBuffer.cpp"
-#include "StateRow.cpp"
 
 #endif
