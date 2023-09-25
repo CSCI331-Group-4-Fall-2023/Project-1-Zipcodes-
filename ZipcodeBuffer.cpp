@@ -89,28 +89,23 @@ void ZipcodeBuffer::setFromFile(string fileLine) {
     int pos = 0;
 
     while (getline(ss, field, ',')) {
-        switch(headerMap[field]) {
-            case 0: 
-                zipcode = stoi(field);
-                break;
-            case 1:
-                city = field;
-                break;
-            case 2:
-                state = field;
-                break;
-            case 3:
-                county = field;
-                break;
-            case 4:
-                latitude = stod(field);
-                break;
-            case 5:
-                longitude = stod(field);
-                break;
-            default:
-                break;
-        }
+        string columnName = headerMap[pos];
+
+        if (columnName == "ZipCode") {
+            zipcode = stoi(field);
+        } else if (columnName == "PlaceName") {
+            city = field;
+        } else if (columnName == "State") {
+            state = field;
+        } else if (columnName == "County") {
+            county = field;
+        } else if (columnName == "Lat") {
+            latitude = stod(field);
+        } else if (columnName == "Long") {
+            longitude = stod(field);
+        } 
+        // You can add more else-if conditions if there are other columns in the CSV.
+
         pos++;
     }
 }
@@ -126,8 +121,8 @@ void ZipcodeBuffer::setHeaderMap(const string& headerLine) {
         if (field.front() == '"' && field.back() == '"') {
             field = field.substr(1, field.size() - 2);
         }
-        
-        headerMap[field] = pos;
+
+        headerMap[pos] = field;
         pos++;
     }
 }
