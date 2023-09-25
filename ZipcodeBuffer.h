@@ -43,7 +43,7 @@ class ZipcodeBuffer {
         double longitude;
 
         /// \brief Map to store the header of the CSV file to keep column sorting flexible.
-        map<string, int> headerMap;
+        map<int, string> headerMap;
 
 
     public:
