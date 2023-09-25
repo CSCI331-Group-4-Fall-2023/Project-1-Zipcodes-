@@ -86,32 +86,52 @@ void ZipcodeBuffer::setLongitude(double longitude) {
 void ZipcodeBuffer::setFromFile(string fileLine) {
     stringstream ss(fileLine);
     string field;
+    int pos = 0;
 
-    //Read zipcode
-    getline(ss, field, ',');
-    zipcode = stoi(field);
-
-    //Read city
-    getline(ss, field, ',');
-    city = field;
-
-    //Read state
-    getline(ss, field, ',');
-    state = field;
-
-    //Read county
-    getline(ss, field, ',');
-    county = field;
-
-    //Read latitude
-    getline(ss, field, ',');
-    latitude = stod(field);
-
-    //Read longitude
-    getline(ss, field, ',');
-    longitude = stod(field);
-
+    while (getline(ss, field, ',')) {
+        switch(headerMap[field]) {
+            case 0: 
+                zipcode = stoi(field);
+                break;
+            case 1:
+                city = field;
+                break;
+            case 2:
+                state = field;
+                break;
+            case 3:
+                county = field;
+                break;
+            case 4:
+                latitude = stod(field);
+                break;
+            case 5:
+                longitude = stod(field);
+                break;
+            default:
+                break;
+        }
+        pos++;
+    }
 }
+
+
+void ZipcodeBuffer::setHeaderMap(const string& headerLine) {
+    stringstream ss(headerLine);
+    string field;
+    int pos = 0;
+
+    while(getline(ss, field, ',')) {
+        // If the CSV contains quoted fields, remove the quotes.
+        if (field.front() == '"' && field.back() == '"') {
+            field = field.substr(1, field.size() - 2);
+        }
+        
+        headerMap[field] = pos;
+        pos++;
+    }
+}
+
 
 //OVERLOADED OPERATORS
 //Overloaded input operator

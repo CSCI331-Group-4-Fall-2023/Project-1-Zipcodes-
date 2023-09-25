@@ -15,6 +15,7 @@
 #define ZIPCODEBUFFER_H
 
 #include <iostream>
+#include <map>
 using namespace std;
 
 /**
@@ -40,6 +41,9 @@ class ZipcodeBuffer {
         
         /// \brief Longitude as a double.
         double longitude;
+
+        /// \brief Map to store the header of the CSV file to keep column sorting flexible.
+        map<string, int> headerMap;
 
 
     public:
@@ -172,6 +176,16 @@ class ZipcodeBuffer {
         void setFromFile(string fileLine);
 
 
+
+        /**
+         * \brief Function to set the header map of the CSV file
+         * \param headerLine String representing the header line of the CSV file
+         * \pre ZipcodeBuffer object must exist
+         * \post ZipcodeBuffer object's headerMap is set to the values in the given string
+        */
+        void setHeaderMap(const string& headerLine);
+
+
         //OVERLOADED OPERATORS
         /**
          * \brief Overloaded input operator for ZipcodeBuffer to read in a line of a CSV file as a string
@@ -195,5 +209,8 @@ class ZipcodeBuffer {
 
     
 };
+
+#include "ZipcodeBuffer.cpp"
+#include "StateRow.cpp"
 
 #endif
