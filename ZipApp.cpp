@@ -37,21 +37,28 @@ int main() {
     int z = 0;
     while (getline(inFile, line)) {
         zipTable[z].setID(line);
-        // cout << "State " << z << " was set to " << zipTable[z].getID() << endl;
         z++;
     }
     zipTable[0].setID("AL");
     // Call buff class and waterfall comparisons
 
     ZipcodeBuffer zipHolder;
-    ifstream inFile2("test.csv");
+    ifstream inFile2("us_postal_codes.csv");
      if (!inFile2) {
         cout << "Error opening file" << endl;
         return -1;
     }
-
+    bool first = true;
+    int count = 0;
     //loop that will feed the array piece by piece
     while (getline(inFile2, line)) { 
+        count++;
+        if(first == true){
+            zipHolder.setHeaderMap(line);
+            first = false;
+            continue;
+        }
+        
         zipHolder.setFromFile(line);
 
         //itterate through the array and match the state ID
@@ -102,7 +109,7 @@ int main() {
     // Print the final table
     cout << "-------Table of States Final-------" << endl;
     for (int i = 0; i < 50; i++) {
-        if(zipTable[i].getFresh() == 0){
+        if(zipTable[i].getFresh() == false){
             cout << zipTable[i] << endl;
         }
     }
