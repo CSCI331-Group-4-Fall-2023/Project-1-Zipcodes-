@@ -55,7 +55,7 @@ StateRow::StateRow(string id, double e, double w, double n, double s, int eZ, in
  * @brief Get the fresh boolean.
  * @return The fresh bool.
  */
-bool StateRow::getFresh(){
+bool StateRow::getFresh() const {
     return fresh;
 }
 
@@ -219,6 +219,11 @@ void StateRow::setFresh(bool b){
  * @return Reference to the output stream.
  */
 ostream& operator<<(ostream& out, const StateRow& row){
-    out << "[" << row.fresh << "]" << "[" << row.ID << "]" << "[" << row.eastmost << "]" << "[" << row.westmost << "]" << "[" << row.northmost << "]" << "[" << row.southmost << "]" << "[" << row.eastmostZ << "]" << "[" << row.westmostZ << "]" << "[" << row.northmostZ << "]" << "[" << row.southmostZ << "]";
+    out << row.ID << " | " 
+        << row.eastmostZ << " | " 
+        << row.westmostZ << " | " 
+        << row.northmostZ << " | " 
+        << row.southmostZ;
     return out;
 }
+

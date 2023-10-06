@@ -1,116 +1,87 @@
 #include <iostream>
+#include <map>
 #include "ZipcodeBuffer.h"
 #include "StateRow.h"
-#include <sstream> // For stringstream
-#include <string> // For getline
-#include <fstream> // For file reading
-//authors Tristan Adams, Preston Betz, and achary Sunder
+#include <sstream> //for string stream
+#include <string> //for getline
+#include <fstream> //for file reading
+//Authors: Tristan Adams, Andrew Clayton, Preston Betz, and Zachary Sunder
 using namespace std;
 
 /**
- * @brief Main function to populate and display a table of StateRow objects.
+ * @brief Main function to populate and display a table of StateRow objects using a map.
  * 
- * The main function reads state IDs from a CSV file, initializes an array of StateRow objects,
- * and displays the final table of states.
+ * The main function reads from a CSV file, populates a map with StateRow objects
+ * indexed by state ID, and displays the final table of states with their easternmost, 
+ * westernmost, northernmost, and southernmost zip codes.
  * 
  * @return 0 on successful execution, -1 on error.
  */
 int main() {
-    // Make an array to hold state rows
-    StateRow zipTable[50];
+    //Makes a hashmap to hold state IDs
+    map<string, StateRow> stateMap;
 
-    // Populate the array with default state rows
-    for (int i = 0; i < 50; i++) {
-        StateRow pass = StateRow();
-        zipTable[i] = pass;
-    }
-
-    // Set state IDs (0-49) to the 50 states from CSV
-    ifstream inFile("ID.csv");
-
+    //Buffer to extract CSV data
+    ZipcodeBuffer zipHolder; 
+    ifstream inFile("us_postal_codes.csv");
     if (!inFile) {
         cout << "Error opening file" << endl;
         return -1;
     }
 
-    string line;
-    int z = 0;
-    while (getline(inFile, line)) {
-        zipTable[z].setID(line);
-        z++;
-    }
-    zipTable[0].setID("AL");
-    // Call buff class and waterfall comparisons
-
-    ZipcodeBuffer zipHolder;
-    ifstream inFile2("us_postal_codes.csv");
-     if (!inFile2) {
-        cout << "Error opening file" << endl;
-        return -1;
-    }
     bool first = true;
-    int count = 0;
-    //loop that will feed the array piece by piece
-    while (getline(inFile2, line)) { 
-        count++;
-        if(first == true){
+    string line;
+    while (getline(inFile, line)) {
+        // Skip header line
+        if(first) {
             zipHolder.setHeaderMap(line);
             first = false;
             continue;
         }
-        
+
+        // Set values from the current CSV line
         zipHolder.setFromFile(line);
+        string stateId = zipHolder.getState();
 
-        //itterate through the array and match the state ID
-        for (int i = 0; i < 50; i++) {
-
-            //populate stateRow if its unused
-            if(zipHolder.getState() == zipTable[i].getID()){
-                if(zipTable[i].getFresh() == true){
-                    zipTable[i].setEast(zipHolder.getLongitude());
-                    zipTable[i].setEastZ(zipHolder.getZipcode());
-                    zipTable[i].setWest(zipHolder.getLongitude());
-                    zipTable[i].setWestZ(zipHolder.getZipcode());
-                    zipTable[i].setNorth(zipHolder.getLatitude());
-                    zipTable[i].setNorthZ(zipHolder.getZipcode());
-                    zipTable[i].setSouth(zipHolder.getLatitude());
-                    zipTable[i].setSouthZ(zipHolder.getZipcode());
-                    zipTable[i].setFresh(false);
-                     break;
-                // comparisons for if the row has been touched
-                }else{
-                    if(zipTable[i].getEast() > zipHolder.getLongitude()){
-                        zipTable[i].setEast(zipHolder.getLongitude());
-                        zipTable[i].setEastZ(zipHolder.getZipcode());
-                    }
-                    if(zipTable[i].getWest() < zipHolder.getLongitude()){
-                        zipTable[i].setWest(zipHolder.getLongitude());
-                        zipTable[i].setWestZ(zipHolder.getZipcode());
-                    }
-                    if(zipTable[i].getNorth() < zipHolder.getLatitude()){
-                        zipTable[i].setNorth(zipHolder.getLatitude());
-                        zipTable[i].setNorthZ(zipHolder.getZipcode());
-                    }
-                    if(zipTable[i].getSouth() > zipHolder.getLatitude()){
-                        zipTable[i].setSouth(zipHolder.getLatitude());
-                        zipTable[i].setSouthZ(zipHolder.getZipcode());
-                    }
-                     break;
-                }
-                
-               
+        // Initialize or get reference to the StateRow object for the current state
+        StateRow& currentRow = stateMap[stateId];
+        if (currentRow.getFresh()) {
+            currentRow.setID(stateId);
+            currentRow.setEast(zipHolder.getLongitude());
+            currentRow.setEastZ(zipHolder.getZipcode());
+            currentRow.setWest(zipHolder.getLongitude());
+            currentRow.setWestZ(zipHolder.getZipcode());
+            currentRow.setNorth(zipHolder.getLatitude());
+            currentRow.setNorthZ(zipHolder.getZipcode());
+            currentRow.setSouth(zipHolder.getLatitude());
+            currentRow.setSouthZ(zipHolder.getZipcode());
+            currentRow.setFresh(false);
+        } else {
+            // Update values if current zip code represents an extreme for the state
+            if(currentRow.getEast() > zipHolder.getLongitude()){
+                currentRow.setEast(zipHolder.getLongitude());
+                currentRow.setEastZ(zipHolder.getZipcode());
             }
-            
+            if(currentRow.getWest() < zipHolder.getLongitude()){
+                currentRow.setWest(zipHolder.getLongitude());
+                currentRow.setWestZ(zipHolder.getZipcode());
+            }
+            if(currentRow.getNorth() < zipHolder.getLatitude()){
+                currentRow.setNorth(zipHolder.getLatitude());
+                currentRow.setNorthZ(zipHolder.getZipcode());
+            }
+            if(currentRow.getSouth() > zipHolder.getLatitude()){
+                currentRow.setSouth(zipHolder.getLatitude());
+                currentRow.setSouthZ(zipHolder.getZipcode());
+            }
         }
     }
 
-
-
-    // Print the final table
-    cout << "-------Table of States Final-------" << endl;
-    for (int i = 0; i < 50; i++) {
-        if(zipTable[i].getFresh() == false){
-            cout << zipTable[i] << endl;
+    // Display the final table
+    cout << "StateID, East Zip, West Zip, North Zip, South Zip" << endl;
+    for (const auto& pair : stateMap) {
+        if(!pair.second.getFresh()){
+            cout << pair.second << endl;
         }
     }
 

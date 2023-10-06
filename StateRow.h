@@ -59,7 +59,7 @@ public:
      */
     string getID();
      
-    bool getFresh();
+    bool getFresh() const;
     // Getter methods
     double getEast(); ///< Get the easternmost longitude.
     double getWest(); ///< Get the westernmost longitude.
